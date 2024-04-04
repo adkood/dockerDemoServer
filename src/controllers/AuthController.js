@@ -89,11 +89,19 @@ exports.login = catchAsync(async (req, res, next) => {
 // Logout handler
 exports.logout = (req, res) => {
     // Set a new cookie with an expired date to logout the user
-    res.cookie('jwt', 'loggedout', {
-        expires: new Date(Date.now() + 10 * 1000), // 10 seconds
-        httpOnly: true
-    });
     
+    let cookieOption = {
+        expires: new Date(Date.now() + 10 * 1000), // 10 seconds
+        httpOnly: true,
+        sameSite: 'None'
+    }
+
+    if (process.env.NODE_ENV === 'production') {
+        cookieOption.secure = true;
+    }
+    
+    res.cookie('jwt', 'loggedout', cookieOption);
+
     console.log(req.cookies);
     res.status(200).json({
         status: 'success',
