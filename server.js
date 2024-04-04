@@ -31,7 +31,7 @@ const server = http.createServer(app);
 const io = socketIO(server);
 
 const corsOptions = {
-    origin: 'http://localhost:3000',
+    origin: ['http://localhost:3000','https://docker-demo-client-dwdin.vercel.app/'],
     credentials: true
 };
 
