@@ -1,0 +1,4 @@
+services:
+  - name: book-server
+    buildCommand: "docker build -t adkood/book-server:1.0 ."
+    startCommand: "docker run -p 5000:5000 --env_file /.env adkood/book-server:1.0"
